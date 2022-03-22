@@ -176,4 +176,13 @@ C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\Razor\Views\Ro
 C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\Razor\Views\RoomTypes\Details.cshtml.g.cs
 C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\Razor\Views\RoomTypes\Edit.cshtml.g.cs
 C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\Razor\Views\RoomTypes\Index.cshtml.g.cs
+C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\ForgotPassword.cshtml.g.cs
+C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\Login.cshtml.g.cs
+C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\Logout.cshtml.g.cs
+C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\Register.cshtml.g.cs
+C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\ResetPassword.cshtml.g.cs
+C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\_ViewImports.cshtml.g.cs
+C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
 C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\HijaDobrila2.csproj.AssemblyReference.cache
+C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\bin\Debug\net5.0\Microsoft.AspNet.Identity.Core.dll

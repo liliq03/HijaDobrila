@@ -1,21 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HijaDobrila2.Data;
+using Microsoft.AspNetCore.Authorization;
+using HijaDobrila2.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace HijaDobrila2.Controllers
 {
+      [Authorize]
     public class RezervationsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public RezervationsController(ApplicationDbContext context)
+        public RezervationsController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
+
         }
 
         // GET: Rezervations
@@ -42,12 +47,24 @@ namespace HijaDobrila2.Controllers
             return View(rezervation);
         }
 
-        // GET: Rezervations/Create
+        // GET: Rezervations/Create  
+        [Authorize(Roles ="User, Admin")]
         public IActionResult Create()
         {
-            return View();
+            RezervationsVM model = new RezervationsVM();
+            
+            model.IdUser= _userManager.GetUserId(User);
+            model.Rooms = _context.Rooms.Select(x => new SelectListItem
+            {
+                
+                Text = x.Description,
+                 Value = x.Id.ToString(),
+                Selected = (x.Id == model.IdRoom)
+            }
+            ).ToList();
+            return View(model);
         }
-
+       
         // POST: Rezervations/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

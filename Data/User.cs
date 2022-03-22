@@ -11,9 +11,9 @@ namespace HijaDobrila2.Data
     
         public string Name { get; set; }
         public string LastName { get; set; }
-        public int Telephone { get; set; }
- 
-      
+        public int Telephone{ get; set; }
+        //public Roles Role { get; set; }
+
         public ICollection<Rezervation> Rezervations { get; set; }
     }
 }
