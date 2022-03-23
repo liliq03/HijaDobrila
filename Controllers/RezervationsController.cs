@@ -15,12 +15,14 @@ namespace HijaDobrila2.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
-
-        public RezervationsController(ApplicationDbContext context, UserManager<User> userManager)
+        private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public RezervationsController(ApplicationDbContext context, UserManager<User> userManager, 
+                                                                      RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
-
+            _roleManager = roleManager;
         }
 
         // GET: Rezervations
