@@ -15,17 +15,18 @@ namespace HijaDobrila2.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        public RezervationsController(ApplicationDbContext context, UserManager<User> userManager, 
-                                                                      RoleManager<IdentityRole> roleManager)
+       // private readonly SignInManager<User> _signInManager;
+       // private readonly RoleManager<IdentityRole> _roleManager;
+        public RezervationsController(ApplicationDbContext context, UserManager<User> userManager)
+        //RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
-            _roleManager = roleManager;
+            //_roleManager = roleManager;
         }
 
         // GET: Rezervations
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Rezervations.ToListAsync());
