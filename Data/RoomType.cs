@@ -9,6 +9,6 @@ namespace HijaDobrila2.Data
     {
         public int Id { get; set; }
         public string TypeName { get; set; }
-        public ICollection<Rezervation> Rezervations { get; set; }
+        public ICollection<Room> Rooms { get; set; }
     }
 }

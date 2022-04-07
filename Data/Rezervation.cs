@@ -9,10 +9,11 @@ namespace HijaDobrila2.Data
     {
         public int Id { get; set; }
         public int IdRoom { get; set; }
+        public Room Rooms { get; set; }
 
-        public Rooms Rooms { get; set; }
         public string IdUser { get; set; }
         public User Users { get; set; }
+
         public int AdultsNum { get; set; }
         public int ChildrensNum { get; set; }
 

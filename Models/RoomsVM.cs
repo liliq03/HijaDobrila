@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,6 +17,7 @@ namespace HijaDobrila2.Models
 
         [Required(ErrorMessage = "This field is  required ")]
         public int IdRoomType { get; set; }
+        public List<SelectListItem> RoomType { get; set; }
 
         [Required(ErrorMessage = "This field is  required ")]
         public string Description { get; set; }

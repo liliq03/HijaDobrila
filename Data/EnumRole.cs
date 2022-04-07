@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace HijaDobrila2.Data
 {
-    public class EnumRole
-    {
-        public enum Roles { Guest, User, Admin }
-    }
+
+ 
+        public enum Roles { User, Admin }
+
 }

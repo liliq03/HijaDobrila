@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
+
 namespace HijaDobrila2.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
@@ -98,12 +99,11 @@ namespace HijaDobrila2.Areas.Identity.Pages.Account
                     Name = Input.Name,
                     LastName = Input.LastName
                 };
-                var result = await _userManager.CreateAsync(user, Input.Password);
-
+                var result = await _userManager.CreateAsync(user, Input.Password);//suzdava tozi klas s tazi parola
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-
+                    var result1 = await _userManager.AddToRoleAsync(user, Roles.User.ToString()); // !!!! dobavyame role=User
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(

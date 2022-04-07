@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HijaDobrila2.Data;
+using HijaDobrila2.Models;
 
 namespace HijaDobrila2.Controllers
 {
@@ -21,7 +22,9 @@ namespace HijaDobrila2.Controllers
         // GET: Rooms
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Rooms.ToListAsync());
+            var roomList = _context.Rooms
+                .Include(o => o.RoomType);
+            return View(await roomList.ToListAsync());
         }
 
         // GET: Rooms/Details/5
@@ -45,7 +48,18 @@ namespace HijaDobrila2.Controllers
         // GET: Rooms/Create
         public IActionResult Create()
         {
-            return View();
+            RoomsVM model = new RoomsVM();
+
+            // model.IdUser = _userManager.GetUserId(User);
+            model.RoomType = _context.RoomTypes.Select(x => new SelectListItem
+            {
+
+                Text = x.TypeName.ToString(),
+                Value = x.Id.ToString(),
+                Selected = (x.Id == model.IdRoomType)
+            }
+            ).ToList();
+            return View(model);
         }
 
         // POST: Rooms/Create
@@ -53,16 +67,26 @@ namespace HijaDobrila2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,RoomNum,IdRoomType,Description,Images,PriceForOneNight")] Rooms rooms)
+        public async Task<IActionResult> Create([Bind("Id,RoomNum,IdRoomType,Description,Images,PriceForOneNight")] RoomsVM rooms)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(rooms);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(rooms);
             }
-            return View(rooms);
+
+            Room modelToDB = new Room
+            {
+                IdRoomType=rooms.IdRoomType,
+                RoomNum=rooms.RoomNum,
+                PriceForOneNight=rooms.PriceForOneNight,
+                Images=rooms.Images,
+                Description=rooms.Description                
+            };
+            _context.Add(modelToDB);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
+
 
         // GET: Rooms/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -85,7 +109,7 @@ namespace HijaDobrila2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,RoomNum,IdRoomType,Description,Images,PriceForOneNight")] Rooms rooms)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RoomNum,IdRoomType,Description,Images,PriceForOneNight")] Room rooms)
         {
             if (id != rooms.Id)
             {

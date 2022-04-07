@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HijaDobrila2.Data.Rooms>
+﻿@model IEnumerable<HijaDobrila2.Data.Room>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.RoomNum)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdRoomType)
+                @Html.DisplayNameFor(model => model.RoomType.TypeName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
@@ -37,7 +37,7 @@
                 @Html.DisplayFor(modelItem => item.RoomNum)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdRoomType)
+                @Html.DisplayFor(modelItem => item.RoomType.TypeName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
