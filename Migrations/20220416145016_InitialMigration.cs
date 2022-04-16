@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HijaDobrila2.Migrations
 {
-    public partial class IinitialMigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -196,10 +196,8 @@ namespace HijaDobrila2.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdRoom = table.Column<int>(type: "int", nullable: false),
-                    RoomsId = table.Column<int>(type: "int", nullable: true),
-                    IdUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UsersId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    RoomId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     AdultsNum = table.Column<int>(type: "int", nullable: false),
                     ChildrensNum = table.Column<int>(type: "int", nullable: false),
                     DateArrived = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -210,17 +208,17 @@ namespace HijaDobrila2.Migrations
                 {
                     table.PrimaryKey("PK_Rezervations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Rezervations_AspNetUsers_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_Rezervations_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Rezervations_Rooms_RoomsId",
-                        column: x => x.RoomsId,
+                        name: "FK_Rezervations_Rooms_RoomId",
+                        column: x => x.RoomId,
                         principalTable: "Rooms",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -263,14 +261,14 @@ namespace HijaDobrila2.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rezervations_RoomsId",
+                name: "IX_Rezervations_RoomId",
                 table: "Rezervations",
-                column: "RoomsId");
+                column: "RoomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rezervations_UsersId",
+                name: "IX_Rezervations_UserId",
                 table: "Rezervations",
-                column: "UsersId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rooms_IdRoomType",

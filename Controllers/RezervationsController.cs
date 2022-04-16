@@ -38,6 +38,7 @@ namespace HijaDobrila2.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
+            
             if (User.IsInRole("Admin"))//ako e admin vijda vsichko
             {
                 var applicationDbContext = _context.Rezervations
@@ -51,7 +52,7 @@ namespace HijaDobrila2.Controllers
                 var myOrders = _context.Rezervations
                                .Include(o => o.Rooms)
                                .Include(u => u.Users)
-                               .Where(x => x.IdUser == currentUser.ToString())
+                               .Where(x => x.UserId == currentUser.ToString())
                                .ToListAsync();
 
                 return View(await myOrders);
@@ -101,7 +102,7 @@ namespace HijaDobrila2.Controllers
 
                 Text = x.RoomNum.ToString(),
                 Value = x.Id.ToString(),
-                Selected = (x.Id == model.IdRoom)
+                Selected = (x.Id == model.RoomId)
             }
             ).ToList();
             return View(model);
@@ -112,18 +113,18 @@ namespace HijaDobrila2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdRoom,IdUser,AdultsNum,ChildrensNum,DateArrived,DateLeft,DateRezervation")]
+        public async Task<IActionResult> Create([Bind("Id,IdRoom,AdultsNum,ChildrensNum,DateArrived,DateLeft,DateRezervation")]
                                                                                             RezervationsVM rezervation)
                                                                                                                         
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 RezervationsVM model = new RezervationsVM();
                 model.Rooms = _context.Rooms.Select(x => new SelectListItem
                 {
                     Text = x.RoomNum.ToString(),
                     Value = x.Id.ToString(),
-                    Selected = (x.Id == model.IdRoom)
+                    Selected = (x.Id == model.RoomId)
                 }
                 ).ToList();
                 return View(model);
@@ -131,11 +132,16 @@ namespace HijaDobrila2.Controllers
 
             Rezervation modelToDB = new Rezervation
             {
-                IdRoom = rezervation.IdRoom,
-                IdUser = _userManager.GetUserId(User),
-                DateRezervation = DateTime.Now
+                RoomId = rezervation.RoomId,
+                UserId = _userManager.GetUserId(User),
+                DateRezervation = DateTime.Now,
+                AdultsNum=rezervation.AdultsNum,
+                DateArrived=rezervation.DateArrived,
+                DateLeft=rezervation.DateLeft,
+                ChildrensNum=rezervation.ChildrensNum
             };
-            _context.Add(rezervation);
+
+            _context.Add(modelToDB);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -154,15 +160,24 @@ namespace HijaDobrila2.Controllers
             {
                 return NotFound();
             }
+
             RezervationsVM model = new RezervationsVM();
             //  зареждаме падащ списък с всички стаи от БД
             model.Rooms = _context.Rooms.Select(pr => new SelectListItem
             {
                 Value = pr.Id.ToString(),
-                Text = pr.Rezervations.ToString(),
-                Selected = pr.Id == model.IdRoom
+                Text = pr.RoomNum.ToString(),
+                Selected = pr.Id == model.RoomId
+
             }
             ).ToList();
+            model.AdultsNum = rezervation.AdultsNum;
+            model.ChildrensNum = rezervation.ChildrensNum;
+            model.DateArrived = rezervation.DateArrived;
+            model.DateLeft = rezervation.DateLeft;
+            model.RoomId = rezervation.RoomId;
+            model.UserId = rezervation.UserId;
+            
             return View(model);
         }
 
@@ -171,30 +186,33 @@ namespace HijaDobrila2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,IdRoom,IdUser,AdultsNum,ChildrensNum,DateArrived," +
+        public async Task<IActionResult> Edit(int id, [Bind("Id,IdRoom,AdultsNum,ChildrensNum,DateArrived," +
                                                                  "DateLeft,DateRezervation")] RezervationsVM rezervation)
         {
             if (id != rezervation.Id)
             {
                 return NotFound();
             }
-
             if (!ModelState.IsValid) //ако моделът не е ОК
             {
                 //презареждаме страницата
                 return View(rezervation);
             }
-
             Rezervation modeFromDB = new Rezervation
             {
                 Id = id,
-                IdUser = _userManager.GetUserId(User),
-                IdRoom = rezervation.IdRoom,
-                DateRezervation = DateTime.Now
+               // IdUser = _userManager.GetUserId(User),
+                RoomId = rezervation.RoomId,
+                DateRezervation = DateTime.Now,
+                DateArrived=rezervation.DateArrived.Date,
+                DateLeft=rezervation.DateLeft.Date,
+                AdultsNum=rezervation.AdultsNum,
+                ChildrensNum=rezervation.ChildrensNum
+
             };
             try
             {
-                _context.Update(modeFromDB);
+                _context.Rezervations.Update(modeFromDB);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -209,7 +227,7 @@ namespace HijaDobrila2.Controllers
                 }
             }
             //4. Извикваме Details на актуализирания запис
-            return RedirectToAction(" Details ", new { id = id });
+            return RedirectToAction("Details", new { id = id });
         }
         // GET: Rezervations/Delete/5
         public async Task<IActionResult> Delete(int? id)

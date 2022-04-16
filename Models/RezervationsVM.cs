@@ -13,12 +13,11 @@ namespace HijaDobrila2.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "This field is  required ")]
-        public int IdRoom { get; set; }
+        public int RoomId { get; set; }
 
         public List<SelectListItem> Rooms { get; set; }
 
-        [Required(ErrorMessage = "This field is  required ")]
-        public string IdUser { get; set; }
+        public string UserId { get; set; }
 
         [Required(ErrorMessage = "This field is  required ")]
         public int AdultsNum { get; set; }
@@ -37,7 +36,6 @@ namespace HijaDobrila2.Models
         public DateTime DateLeft { get; set; }
 
 
-        [DataType(DataType.Date)]
         [Display(Name = "Дата на резервация")]
         public DateTime DateRezervation { get; set; }
 

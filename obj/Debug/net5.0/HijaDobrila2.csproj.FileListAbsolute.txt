@@ -185,3 +185,4 @@ C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\Razor\Areas\Id
 C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
 C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\bin\Debug\net5.0\Microsoft.AspNet.Identity.Core.dll
+C:\Users\liliq\Desktop\HijaDobrila2\HijaDobrila2\obj\Debug\net5.0\HijaDobrila2.csproj.AssemblyReference.cache

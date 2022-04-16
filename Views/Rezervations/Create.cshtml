@@ -13,15 +13,15 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="IdRoom" class="control-label"></label>
-                <input asp-for="IdRoom" class="form-control" />
-                <span asp-validation-for="IdRoom" class="text-danger"></span>
+                <label asp-for="RoomId" class="control-label"></label>
+                <input asp-for="RoomId" class="form-control" />
+                <span asp-validation-for="RoomId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="IdUser" class="control-label"></label>
                 <input asp-for="IdUser" class="form-control" />
                 <span asp-validation-for="IdUser" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="AdultsNum" class="control-label"></label>
                 <input asp-for="AdultsNum" class="form-control" />
@@ -42,11 +42,7 @@
                 <input asp-for="DateLeft" class="form-control" />
                 <span asp-validation-for="DateLeft" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DateRezervation" class="control-label"></label>
-                <input asp-for="DateRezervation" class="form-control" />
-                <span asp-validation-for="DateRezervation" class="text-danger"></span>
-            </div>
+            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

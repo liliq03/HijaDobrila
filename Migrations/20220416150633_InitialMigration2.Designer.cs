@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HijaDobrila2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220330143914_IinitialMigration")]
-    partial class IinitialMigration
+    [Migration("20220416150633_InitialMigration2")]
+    partial class InitialMigration2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,23 +43,17 @@ namespace HijaDobrila2.Migrations
                     b.Property<DateTime>("DateRezervation")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdRoom")
+                    b.Property<int>("RoomId")
                         .HasColumnType("int");
 
-                    b.Property<string>("IdUser")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("RoomsId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UsersId")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoomsId");
+                    b.HasIndex("RoomId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Rezervations");
                 });
@@ -318,11 +312,13 @@ namespace HijaDobrila2.Migrations
                 {
                     b.HasOne("HijaDobrila2.Data.Room", "Rooms")
                         .WithMany("Rezervations")
-                        .HasForeignKey("RoomsId");
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HijaDobrila2.Data.User", "Users")
                         .WithMany("Rezervations")
-                        .HasForeignKey("UsersId");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Rooms");
 
