@@ -95,8 +95,6 @@ namespace HijaDobrila2.Controllers
         public IActionResult Create()
         {
             RezervationsVM model = new RezervationsVM();
-
-           // model.IdUser = _userManager.GetUserId(User);
             model.Rooms = _context.Rooms.Select(x => new SelectListItem
             {
 

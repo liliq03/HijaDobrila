@@ -4,13 +4,13 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Cъздaвaне нa стaи</h1>
 
-<h4>Rooms</h4>
+<h4>Стаи</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="RoomNum" class="control-label"></label>
@@ -38,7 +38,7 @@
                 <span asp-validation-for="PriceForOneNight" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Създай"style="background-color:lightsteelblue;" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -37,6 +37,7 @@ html {
   }
 }
 
+
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
@@ -52,17 +53,30 @@ button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
 }
+.index {
+    background-color:lightsteelblue;
+
+}
+.rooms{
+    background-color:lightsteelblue;
+}
+.roomtype{
+    background-color:lightsteelblue;
+}
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-image: url(../images/hija-dobrila_.jpg);
+
 }
 
 .footer {
