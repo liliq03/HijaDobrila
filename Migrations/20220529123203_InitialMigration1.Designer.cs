@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HijaDobrila2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220416150633_InitialMigration2")]
-    partial class InitialMigration2
+    [Migration("20220529123203_InitialMigration1")]
+    partial class InitialMigration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

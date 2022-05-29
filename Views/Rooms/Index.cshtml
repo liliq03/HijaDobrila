@@ -13,19 +13,19 @@
     <thead class="rooms">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.RoomNum)
+                Номер на стая
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RoomType.TypeName)
+                Тип стая
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
+                Описание
+            </th>             
             <th>
-                @Html.DisplayNameFor(model => model.Images)
-            </th>
+                Снимка
+            </th>         
             <th>
-                @Html.DisplayNameFor(model => model.PriceForOneNight)
+                Цена за една нощ
             </th>
             <th></th>
         </tr>
@@ -43,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Images)
+                <img class="rounded float-sm-right" width="200" src="@item.Images" alt="Image for @item.Images" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PriceForOneNight)

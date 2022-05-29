@@ -18,13 +18,11 @@ namespace HijaDobrila2.Controllers
             _context = context;
         }
 
-        // GET: RoomTypes
         public async Task<IActionResult> Index()
         {
             return View(await _context.RoomTypes.ToListAsync());
         }
 
-        // GET: RoomTypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,15 +40,11 @@ namespace HijaDobrila2.Controllers
             return View(roomType);
         }
 
-        // GET: RoomTypes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: RoomTypes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,TypeName")] RoomType roomType)
@@ -64,7 +58,6 @@ namespace HijaDobrila2.Controllers
             return View(roomType);
         }
 
-        // GET: RoomTypes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,9 +73,6 @@ namespace HijaDobrila2.Controllers
             return View(roomType);
         }
 
-        // POST: RoomTypes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,TypeName")] RoomType roomType)
@@ -115,7 +105,6 @@ namespace HijaDobrila2.Controllers
             return View(roomType);
         }
 
-        // GET: RoomTypes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,7 +122,6 @@ namespace HijaDobrila2.Controllers
             return View(roomType);
         }
 
-        // POST: RoomTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

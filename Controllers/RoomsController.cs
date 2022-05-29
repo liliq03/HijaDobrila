@@ -19,7 +19,6 @@ namespace HijaDobrila2.Controllers
             _context = context;
         }
 
-        // GET: Rooms
         public async Task<IActionResult> Index()
         {
             var roomList = _context.Rooms
@@ -27,7 +26,6 @@ namespace HijaDobrila2.Controllers
             return View(await roomList.ToListAsync());
         }
 
-        // GET: Rooms/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,12 +43,9 @@ namespace HijaDobrila2.Controllers
             return View(rooms);
         }
 
-        // GET: Rooms/Create
         public IActionResult Create()
         {
             RoomsVM model = new RoomsVM();
-
-            // model.IdUser = _userManager.GetUserId(User);
             model.RoomType = _context.RoomTypes.Select(x => new SelectListItem
             {
 
@@ -62,9 +57,6 @@ namespace HijaDobrila2.Controllers
             return View(model);
         }
 
-        // POST: Rooms/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,RoomNum,IdRoomType,Description,Images,PriceForOneNight")] RoomsVM rooms)
@@ -87,8 +79,6 @@ namespace HijaDobrila2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-        // GET: Rooms/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -104,9 +94,6 @@ namespace HijaDobrila2.Controllers
             return View(rooms);
         }
 
-        // POST: Rooms/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,RoomNum,IdRoomType,Description,Images,PriceForOneNight")] Room rooms)
@@ -139,7 +126,6 @@ namespace HijaDobrila2.Controllers
             return View(rooms);
         }
 
-        // GET: Rooms/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,7 +143,7 @@ namespace HijaDobrila2.Controllers
             return View(rooms);
         }
 
-        // POST: Rooms/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

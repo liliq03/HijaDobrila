@@ -4,20 +4,18 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Създай резервация</h1>
+<h1>Create</h1>
 
-<h4>Резервации</h4>
+<h4>Rezervation</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4" >
-        <form asp-action="Create"  >
+    <div class="col-md-4">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="RoomId" class="control-label"></label>
-                <input asp-for="RoomId" class="form-control" />
-                <span asp-validation-for="RoomId" class="text-danger"></span>
+                <select asp-for="RoomId" class ="form-control" asp-items="@Model.Rooms"></select>
             </div>
-            
             <div class="form-group">
                 <label asp-for="AdultsNum" class="control-label"></label>
                 <input asp-for="AdultsNum" class="form-control" />
@@ -25,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ChildrensNum" class="control-label"></label>
-                <input asp-for="ChildrensNum"   class="form-control" />
+                <input asp-for="ChildrensNum" class="form-control" />
                 <span asp-validation-for="ChildrensNum" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -37,10 +35,9 @@
                 <label asp-for="DateLeft" class="control-label"></label>
                 <input asp-for="DateLeft" class="form-control" />
                 <span asp-validation-for="DateLeft" class="text-danger"></span>
-            </div>
-            
+            </div>         
             <div class="form-group">
-                <input type="submit" value="Създай" style="background-color:lightsteelblue;" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>

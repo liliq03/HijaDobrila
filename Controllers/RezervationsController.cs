@@ -16,30 +16,17 @@ namespace HijaDobrila2.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
-        // private readonly SignInManager<User> _signInManager;
-        // private readonly RoleManager<IdentityRole> _roleManager;
         public RezervationsController(ApplicationDbContext context, UserManager<User> userManager)
-        //RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
-            //_roleManager = roleManager;
         }
-       /* public async Task<IActionResult> Test()
-        {
-            var userLoged = await _userManager.GetUserAsync(User);
-            var result = await _userManager.AddToRoleAsync(userLoged, Roles.Admin.ToString());   //"Admin");
-            var roles = _userManager.GetRolesAsync(userLoged);
-            return Content("OK !!!");
-        }
-       */
-
-        // GET: Rezervations
+    
         [Authorize]
         public async Task<IActionResult> Index()
         {
             
-            if (User.IsInRole("Admin"))//ako e admin vijda vsichko
+            if (User.IsInRole("Admin"))
             {
                 var applicationDbContext = _context.Rezervations
                 .Include(o => o.Rooms)
@@ -60,7 +47,6 @@ namespace HijaDobrila2.Controllers
 
         }
 
-        // GET: Rezervations
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index1()
         {
@@ -70,7 +56,6 @@ namespace HijaDobrila2.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Rezervations/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -80,7 +65,7 @@ namespace HijaDobrila2.Controllers
 
             var rezervation = await _context.Rezervations
                  .Include(o => o.Rooms)
-                .Include(u => u.Users) //ako go nqma nqmam dostyp do poletata na User
+                .Include(u => u.Users)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (rezervation == null)
             {
@@ -90,7 +75,6 @@ namespace HijaDobrila2.Controllers
             return View(rezervation);
         }
 
-        // GET: Rezervations/Create  
         [Authorize(Roles = "User, Admin")]
         public IActionResult Create()
         {
@@ -106,9 +90,6 @@ namespace HijaDobrila2.Controllers
             return View(model);
         }
 
-        // POST: Rezervations/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,IdRoom,AdultsNum,ChildrensNum,DateArrived,DateLeft,DateRezervation")]
@@ -139,13 +120,11 @@ namespace HijaDobrila2.Controllers
                 ChildrensNum=rezervation.ChildrensNum
             };
 
-            _context.Add(modelToDB);
+            _context.Add(modelToDB); 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-    
-        // GET: Rezervations/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -159,16 +138,14 @@ namespace HijaDobrila2.Controllers
                 return NotFound();
             }
 
-            RezervationsVM model = new RezervationsVM();
-            //  зареждаме падащ списък с всички стаи от БД
+            RezervationsVM model = new RezervationsVM();           
             model.Rooms = _context.Rooms.Select(pr => new SelectListItem
             {
                 Value = pr.Id.ToString(),
                 Text = pr.RoomNum.ToString(),
                 Selected = pr.Id == model.RoomId
 
-            }
-            ).ToList();
+            } ).ToList();
             model.AdultsNum = rezervation.AdultsNum;
             model.ChildrensNum = rezervation.ChildrensNum;
             model.DateArrived = rezervation.DateArrived;
@@ -179,9 +156,6 @@ namespace HijaDobrila2.Controllers
             return View(model);
         }
 
-        // POST: Rezervations/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,IdRoom,AdultsNum,ChildrensNum,DateArrived," +
@@ -191,22 +165,19 @@ namespace HijaDobrila2.Controllers
             {
                 return NotFound();
             }
-            if (!ModelState.IsValid) //ако моделът не е ОК
+            if (!ModelState.IsValid) 
             {
-                //презареждаме страницата
                 return View(rezervation);
             }
             Rezervation modeFromDB = new Rezervation
             {
                 Id = id,
-               // IdUser = _userManager.GetUserId(User),
                 RoomId = rezervation.RoomId,
                 DateRezervation = DateTime.Now,
                 DateArrived=rezervation.DateArrived.Date,
                 DateLeft=rezervation.DateLeft.Date,
                 AdultsNum=rezervation.AdultsNum,
                 ChildrensNum=rezervation.ChildrensNum
-
             };
             try
             {
@@ -224,10 +195,9 @@ namespace HijaDobrila2.Controllers
                     throw;
                 }
             }
-            //4. Извикваме Details на актуализирания запис
             return RedirectToAction("Details", new { id = id });
         }
-        // GET: Rezervations/Delete/5
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -246,7 +216,6 @@ namespace HijaDobrila2.Controllers
             return View(rezervation);
         }
 
-        // POST: Rezervations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -254,7 +223,6 @@ namespace HijaDobrila2.Controllers
             var rezervation = await _context.Rezervations
                 .Include(u => u.Users)
                 .FirstOrDefaultAsync(x => x.Id == id);
-            // .FindAsync(id);
             _context.Rezervations.Remove(rezervation);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

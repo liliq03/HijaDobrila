@@ -12,7 +12,7 @@ namespace HijaDobrila2.Data
         public int Id { get; set; }
 
         [Required]
-        [ForeignKey("Reservation")]
+        [ForeignKey("Rezervation")]
         public int RoomId { get; set; }
         public Room Rooms { get; set; }
 

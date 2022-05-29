@@ -12,7 +12,7 @@ namespace HijaDobrila2.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "This field is  required ")]
+      //  [Required(ErrorMessage = "This field is  required ")]
         public int RoomId { get; set; }
 
         public List<SelectListItem> Rooms { get; set; }
