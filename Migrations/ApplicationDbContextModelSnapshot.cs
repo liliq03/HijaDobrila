@@ -66,9 +66,6 @@ namespace HijaDobrila2.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdRoomType")
-                        .HasColumnType("int");
-
                     b.Property<string>("Images")
                         .HasColumnType("nvarchar(max)");
 
@@ -78,9 +75,12 @@ namespace HijaDobrila2.Migrations
                     b.Property<int>("RoomNum")
                         .HasColumnType("int");
 
+                    b.Property<int>("RoomTypeId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("IdRoomType");
+                    b.HasIndex("RoomTypeId");
 
                     b.ToTable("Rooms");
                 });
@@ -327,7 +327,7 @@ namespace HijaDobrila2.Migrations
                 {
                     b.HasOne("HijaDobrila2.Data.RoomType", "RoomType")
                         .WithMany("Rooms")
-                        .HasForeignKey("IdRoomType")
+                        .HasForeignKey("RoomTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

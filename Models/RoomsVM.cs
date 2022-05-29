@@ -16,7 +16,7 @@ namespace HijaDobrila2.Models
         public int RoomNum { get; set; }
 
         [Required(ErrorMessage = "This field is  required ")]
-        public int IdRoomType { get; set; }
+        public int RoomTypeId { get; set; }
         public List<SelectListItem> RoomType { get; set; }
 
         [Required(ErrorMessage = "This field is  required ")]

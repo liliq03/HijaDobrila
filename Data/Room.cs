@@ -14,7 +14,7 @@ namespace HijaDobrila2.Data
         public int RoomNum { get; set; }
 
         [ForeignKey("RoomType")]
-        public int IdRoomType { get; set; }
+        public int RoomTypeId { get; set; }
         public RoomType RoomType { get; set; }
         public string Description { get; set; }
         public string Images { get; set; }

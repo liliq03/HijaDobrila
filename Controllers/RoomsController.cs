@@ -48,10 +48,9 @@ namespace HijaDobrila2.Controllers
             RoomsVM model = new RoomsVM();
             model.RoomType = _context.RoomTypes.Select(x => new SelectListItem
             {
-
                 Text = x.TypeName.ToString(),
                 Value = x.Id.ToString(),
-                Selected = (x.Id == model.IdRoomType)
+                Selected = (x.Id == model.RoomTypeId)
             }
             ).ToList();
             return View(model);
@@ -68,7 +67,7 @@ namespace HijaDobrila2.Controllers
 
             Room modelToDB = new Room
             {
-                IdRoomType=rooms.IdRoomType,
+                RoomTypeId=rooms.RoomTypeId,
                 RoomNum=rooms.RoomNum,
                 PriceForOneNight=rooms.PriceForOneNight,
                 Images=rooms.Images,

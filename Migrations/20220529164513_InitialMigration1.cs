@@ -174,7 +174,7 @@ namespace HijaDobrila2.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoomNum = table.Column<int>(type: "int", nullable: false),
-                    IdRoomType = table.Column<int>(type: "int", nullable: false),
+                    RoomTypeId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Images = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PriceForOneNight = table.Column<decimal>(type: "decimal(10,2)", nullable: false)
@@ -183,8 +183,8 @@ namespace HijaDobrila2.Migrations
                 {
                     table.PrimaryKey("PK_Rooms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Rooms_RoomTypes_IdRoomType",
-                        column: x => x.IdRoomType,
+                        name: "FK_Rooms_RoomTypes_RoomTypeId",
+                        column: x => x.RoomTypeId,
                         principalTable: "RoomTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -271,9 +271,9 @@ namespace HijaDobrila2.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rooms_IdRoomType",
+                name: "IX_Rooms_RoomTypeId",
                 table: "Rooms",
-                column: "IdRoomType");
+                column: "RoomTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

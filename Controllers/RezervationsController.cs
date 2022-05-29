@@ -21,11 +21,11 @@ namespace HijaDobrila2.Controllers
             _context = context;
             _userManager = userManager;
         }
-    
+
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            
+
             if (User.IsInRole("Admin"))
             {
                 var applicationDbContext = _context.Rezervations
@@ -44,7 +44,6 @@ namespace HijaDobrila2.Controllers
 
                 return View(await myOrders);
             }
-
         }
 
         [Authorize(Roles = "Admin")]
@@ -79,22 +78,22 @@ namespace HijaDobrila2.Controllers
         public IActionResult Create()
         {
             RezervationsVM model = new RezervationsVM();
-            model.Rooms = _context.Rooms.Select(x => new SelectListItem
-            {
-
-                Text = x.RoomNum.ToString(),
-                Value = x.Id.ToString(),
-                Selected = (x.Id == model.RoomId)
-            }
-            ).ToList();
-            return View(model);
+            //model.Rooms = _context.Rooms.Select(x => new SelectListItem
+            //{
+            //    Value = x.Id.ToString(),
+            //    Text = x.Description.ToString(),
+            //    Selected = (x.Id == model.RoomId)
+            //}
+            //).ToList();
+            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "RoomNum");
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,IdRoom,AdultsNum,ChildrensNum,DateArrived,DateLeft,DateRezervation")]
                                                                                             RezervationsVM rezervation)
-                                                                                                                        
+
         {
             if (!ModelState.IsValid)
             {
@@ -114,13 +113,13 @@ namespace HijaDobrila2.Controllers
                 RoomId = rezervation.RoomId,
                 UserId = _userManager.GetUserId(User),
                 DateRezervation = DateTime.Now,
-                AdultsNum=rezervation.AdultsNum,
-                DateArrived=rezervation.DateArrived,
-                DateLeft=rezervation.DateLeft,
-                ChildrensNum=rezervation.ChildrensNum
+                AdultsNum = rezervation.AdultsNum,
+                DateArrived = rezervation.DateArrived,
+                DateLeft = rezervation.DateLeft,
+                ChildrensNum = rezervation.ChildrensNum
             };
 
-            _context.Add(modelToDB); 
+            _context.Add(modelToDB);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -138,21 +137,21 @@ namespace HijaDobrila2.Controllers
                 return NotFound();
             }
 
-            RezervationsVM model = new RezervationsVM();           
+            RezervationsVM model = new RezervationsVM();
             model.Rooms = _context.Rooms.Select(pr => new SelectListItem
             {
                 Value = pr.Id.ToString(),
                 Text = pr.RoomNum.ToString(),
                 Selected = pr.Id == model.RoomId
 
-            } ).ToList();
+            }).ToList();
             model.AdultsNum = rezervation.AdultsNum;
             model.ChildrensNum = rezervation.ChildrensNum;
             model.DateArrived = rezervation.DateArrived;
             model.DateLeft = rezervation.DateLeft;
             model.RoomId = rezervation.RoomId;
             model.UserId = rezervation.UserId;
-            
+
             return View(model);
         }
 
@@ -165,7 +164,7 @@ namespace HijaDobrila2.Controllers
             {
                 return NotFound();
             }
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
                 return View(rezervation);
             }
@@ -174,10 +173,10 @@ namespace HijaDobrila2.Controllers
                 Id = id,
                 RoomId = rezervation.RoomId,
                 DateRezervation = DateTime.Now,
-                DateArrived=rezervation.DateArrived.Date,
-                DateLeft=rezervation.DateLeft.Date,
-                AdultsNum=rezervation.AdultsNum,
-                ChildrensNum=rezervation.ChildrensNum
+                DateArrived = rezervation.DateArrived.Date,
+                DateLeft = rezervation.DateLeft.Date,
+                AdultsNum = rezervation.AdultsNum,
+                ChildrensNum = rezervation.ChildrensNum
             };
             try
             {
@@ -236,8 +235,8 @@ namespace HijaDobrila2.Controllers
 }
 
 
-   
 
-   
+
+
 
 
